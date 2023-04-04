@@ -38,11 +38,13 @@ public class AirportRepository {
 
     public String getAirportNameFromFlightId(Integer flightId) {
         String name = null;
+        String code = null;
         if(flightsDb.containsKey(flightId)) {
             Flight flight = flightsDb.get(flightId);
             name = String.valueOf(flight.getFromCity());
+            code = name.substring(0,1) + name.substring(2,3);
         }
-        String code = name.substring(0,1) + name.substring(2,3);
+
         return code;
     }
 
@@ -117,6 +119,8 @@ public class AirportRepository {
 
     public int getNumberOfPeopleOn(Date date, String airportName) {
         int totalNumberPassengers = 0;
+        if(flightsDb.size()==0) return totalNumberPassengers;
+
          City city = airportsDb.get(airportName).getCity();
 
         for(Integer id : flightsDb.keySet()) {
