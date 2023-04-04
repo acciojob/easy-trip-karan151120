@@ -42,7 +42,8 @@ public class AirportRepository {
             Flight flight = flightsDb.get(flightId);
             name = String.valueOf(flight.getFromCity());
         }
-        return name;
+        String code = name.substring(0,1) + name.substring(2,3);
+        return code;
     }
 
     public String addFlight(Flight flight) {
@@ -120,7 +121,7 @@ public class AirportRepository {
 
         for(Integer id : flightsDb.keySet()) {
             Flight flight = flightsDb.get(id);
-            if(flight.getFlightDate().compareTo(date)==0 && (flight.getFromCity().equals(city) || flight.getToCity().equals(city))) {
+            if(flight.getFlightDate().compareTo(date)==0 && (flight.getFromCity().compareTo(city)==0 || flight.getToCity().compareTo(city)==0)) {
                 totalNumberPassengers += passengerBookedFlightDb.get(id).size();
             }
         }
